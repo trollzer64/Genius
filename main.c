@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include<unistd.h>
 
 typedef enum { false, true } bool;
 main (){
@@ -17,29 +18,24 @@ main (){
       for (i = 0; i < seq; i++) {
         random[i] = 1+rand()%(nivel*3);
         printf("%d", random[i]);
-        tempo=clock();
-        while(clock()-tempo<2500){
-          //WAIT//
-        }
-        printf("\b ");
-        tempo=clock();
-        while(clock()-tempo<500){
-          //WAIT//
-        }
+        sleep(3);
+        system("cls");
       }
       turno=false;
-    } else {
+    }else{
       i=0;
       while ((erro==false)&&(i<seq)) {
         scanf("%d", &resposta[i]);
         setbuf(stdin, NULL);
-        printf("\b ");
+        system("cls");
         i++;
         if (random[i]!=resposta[i]) {
           erro=true;
           printf("EH COM S DE SADIA, SEU ANIMAL\n");
+          exit;
         }
       }
+      turno=true;
     }
     if (seq%10==0) {
       nivel++;
