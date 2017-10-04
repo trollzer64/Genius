@@ -61,42 +61,44 @@ void jogo_base(int modo){
 
   printf("\e[H\e[2J");
   printf("JOGO\n");
+  sleep(1);
   if (modo==1) {
     printf("Modo 1 Jogador\n");
   } else {
     printf("Modo 2 Jogadores\n");
   }
+  sleep(2);
+  printf("\e[H\e[2J");
 
   srand(time(NULL));
 
   while (erro_resposta==false) {
-    printf("Nivel %d\n", nivel);
     if (turno==true) {
-
       for (i = cont; i < sequencia; i++) {
-				if (modo==1) {
-				  proposta[i] = 1+rand()%(nivel*3);
-				} else {
-          do {
-            erro_proposta=false;
-
-            scanf("%hu", &proposta[i]);
-            if ((proposta[i]<1)||(proposta[i]>nivel*3)) {
-              erro_proposta=true;
-            }
-          } while(erro_proposta=true);
-        }
+				proposta[i] = 1+rand()%(nivel*3);
 			}
 			cont++;
 
 			for (i = 0; i < sequencia; i++) {
+        printf("Nivel %d\n", nivel);
 				printf("%d", proposta[i]);
+        sleep(2);
+        system("cls");
 			}
 			printf("\n");
 
       turno=false;
     } else {
-      //proposta aqui//
+      i=0;
+			while ((erro_resposta==false)&&(i<sequencia)) {
+				scanf("%hu", &resposta[i]);
+				setbuf(stdin, NULL);
+				if (proposta[i]!=resposta[i]) {
+					erro_resposta=true;
+					printf("RESPOSTA INCORRETA\n\nFIM DE JOGO\n");
+				}
+				i++;
+			}
 
       if (sequencia%10==0) {
         nivel++;
