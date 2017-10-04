@@ -1,49 +1,46 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <unistd.h>
 
 typedef enum { false, true } bool;
-main (){
-  int i;
-  int random[50], resposta[50], seq=1, nivel=1, tempo;
-  bool turno=true, erro=false;
+void menu ();
+int main (){
+
+  unsigned short int op;
+  bool saida=false;
 
   srand(time(NULL));
 
-  while (erro==false) {
-    printf("Nivel %d\n", nivel);
-
-    if (turno==true) {
-      for (i = 0; i < seq; i++) {
-        random[i] = 1+rand()%(nivel*3);
-        printf("%d", random[i]);
-        tempo=clock();
-        while(clock()-tempo<2500){
-          //WAIT//
-        }
-        printf("\b ");
-        tempo=clock();
-        while(clock()-tempo<500){
-          //WAIT//
-        }
-      }
-      turno=false;
+  while (saida!=true) {
+    printf("\e[H\e[2J");
+    menu();
+    scanf("%hu", &op);
+    setbuf(stdin, NULL);
+    if (op==1) {
+      printf("JOGO 1\n");
+      sleep(2);
+    } else if (op==2) {
+      printf("JOGO 2\n");
+      sleep(2);
+    } else if (op==3) {
+      printf("INSTRUÇÕES\n");
+      sleep(2);
+    } else if (op==4) {
+      printf("OBRIGRADO POR JOGAR\n");
+      saida=true;
+      sleep(2);
     } else {
-      i=0;
-      while ((erro==false)&&(i<seq)) {
-        scanf("%d", &resposta[i]);
-        setbuf(stdin, NULL);
-        printf("\b ");
-        i++;
-        if (random[i]!=resposta[i]) {
-          erro=true;
-          printf("EH COM S DE SADIA, SEU ANIMAL\n");
-        }
-      }
+      printf("ENTRADA INVALIDA\n");
+      sleep(2);
     }
-    if (seq%10==0) {
-      nivel++;
-    }
-    seq++;
   }
+}
+void menu(){
+  printf("BEM VINDO\n");
+  printf("1 - Modo 1 Jogador\n");
+  printf("2 - Modo 2 Jogadores\n");
+  printf("3 - Instruções\n");
+  printf("4 - Sair\n");
+  printf("\nSua escolha: \n");
 }
