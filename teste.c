@@ -1,88 +1,33 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <conio.h>
 #include <time.h>
+#include <unistd.h>
 
-void umJogador();
-void doisJogadores();
+typedef enum { false, true } bool;
 
-void tempo(int seg) {
-    int tQ = time(0) + seg;
-    while (time(0) < tQ);
-}
+void menu ();
+void jogo_base (int modo);
+void main (){
 
-main (){
-	int x;
+	unsigned short int op;
+	bool saida=false;
 
-	printf("--- BEM VINDO AO JOGO GENIUS ---\n");
+	while (saida!=true) {
+		menu();
 
-	do {
-		printf("Deseja jogar como?\n");
-		printf("1. Um jogador\n");
-		printf("2. Dois jogadores\n");
-		printf("3. Sair\n");
-
-		scanf("%d", &x);
-		system("cls");
-
-		switch(x) {
-			case 1:
-				umJogador();
-				break;
-			case 2:
-				doisJogadores();
-				break;
+		scanf("%hu", &op);
+		setbuf(stdin, NULL);
+		if ((op==1)||(op==2)) {
+			jogo_base(op);
+		} else if (op==3) {
+			system("cls");
+			printf("OBRIGADO POR JOGAR\n");
+			saida=true;
+		} else {
+			printf("ENTRADA INVÁLIDA\n");
 		}
-	} while(x != 3);
 
-}
-
-void umJogador() {
-	int level = 1, lost = 0, j = 10, k, count = 0;
-
-	while (lost == 0) {
-		printf("Nivel %d:\n", level);
-		int num[10];
-		srand(time(NULL));
-		for (k = 0; k < 10; k++) {
-			int r = rand() % (4+count);
-			while (r == 0)
-				r = rand() % (4+count);
-			num[k] = r;
-			//printf("%d ", num[k]);
-		}
-		printf("\n");
-		//for (j = 1; j <= 10 && lost == 0; j++) {
-			for (k = 0; k < 10; k++) {
-				printf("%d", num[k]);
-				//tempo(2);
-				//printf("\b* ");
-
-			}
-			printf("\n");
-
-			for (k = 0; k < 10; k++) {
-				int y;
-				scanf("%d", &y);
-				printf("\b ");
-				if(y != num[k]) {
-					lost = 1;
-				}
-				system("cls");
-				if(lost==1){
-					printf("voce perdeu no nivel %d\n", level);
-				}
-			}
-
-			printf("\n");
-		//}
-		if (j == 10) {
-			level++;
-			count += 3;
-		}
+		printf("Pressione qualquer tecla para continuar\n");
+		getchar();
 	}
-}
-
-void doisJogadores() {
-
 }
