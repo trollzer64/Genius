@@ -65,12 +65,12 @@ void jogo_base (unsigned short int modo) {
 				entrada(nivel, resposta, i, turno);
 
 				if (proposta[i] != resposta[i]) {
-						printf("RESPOSTA INCORRETA\n");
-						if (modo == 2) {
-							printf("Jogador 2 venceu\n");
-						} else {
-							printf("Perdeu no N%cvel %d\n", 161, nivel);
-						}
+					printf("RESPOSTA INCORRETA\n");
+					if (modo == 2) {
+						printf("Jogador 2 venceu\n");
+					} else {
+						printf("Perdeu no N%cvel %d\n", 161, nivel);
+					}
 					erro = true;
 				}
 
@@ -86,10 +86,10 @@ void jogo_base (unsigned short int modo) {
 			while ((erro == false)&&(i < sequencia)){
 				entrada(nivel, resposta, i, turno);
 
-				if (proposta[i] != resposta[i]) {
-						printf("RESPOSTA INCORRETA\n");
-						printf("Jogador 1 venceu\n");
-						erro = true;
+			 if (proposta[i] != resposta[i]) {
+					printf("RESPOSTA INCORRETA\n");
+					printf("Jogador 1 venceu\n");
+					erro = true;
 				}
 
 				i++;
